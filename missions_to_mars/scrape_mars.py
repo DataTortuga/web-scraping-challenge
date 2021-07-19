@@ -3,43 +3,50 @@ from bs4 import BeautifulSoup
 from webdriver_manager.chrome import ChromeDriverManager
 import pandas as pd
 
+def scrape():
+        
+    browser = Browser('chrome', executable_path="./chromedriver")
+    url = 'https://redplanetscience.com/'
+    browser.visit(url)
 
-browser = Browser('chrome', executable_path="./chromedriver")
-url = 'https://redplanetscience.com/'
-browser.visit(url)
+    html = browser.html
+    soup = BeautifulSoup(html, 'html.parser')
 
-html = browser.html
-soup = BeautifulSoup(html, 'html.parser')
+    title = soup.find_all('div', class_='content_title')
 
-title = soup.find_all('div', class_='content_title')
-print(title[0].text)
+    p_text = soup.find_all('div', class_='article_teaser_body')
 
-p_text = soup.find_all('div', class_='article_teaser_body')
-print(p_text[0].text)
+    browser = Browser('chrome', executable_path="./chromedriver")
+    url = 'https://spaceimages-mars.com/'
+    browser.visit(url)
 
-browser = Browser('chrome', executable_path="./chromedriver")
-url = 'https://spaceimages-mars.com/'
-browser.visit(url)
+    html = browser.html
+    soup = BeautifulSoup(html, 'html.parser')
 
-html = browser.html
-soup = BeautifulSoup(html, 'html.parser')
-
-f_img = soup.find_all('img', class_='headerimage fade-in')
-for x in range(len(f_img)):
-    print(f_img[x]['src'])
-
-full_url = url+f_img[0]['src']
+    f_img = soup.find_all('img', class_='headerimage fade-in')
+    f_url = url+f_img[0]['src']
 
 
-url = 'https://galaxyfacts-mars.com/'
+    url = 'https://galaxyfacts-mars.com/'
 
-tables = pd.read_html(url)
-tables
+    tables = pd.read_html(url)
+    tables
 
-df = tables[1]
-html_table = df.to_html()
+    df = tables[1]
+    html_table = df.to_html()
 
-hem_imgs = [{'title': 'Cerberus Hemisphere', 'img_url': 'https://marshemispheres.com/images/full.jpg'},
-            {'title': 'Schiaparelli Hemisphere', 'img_url': 'https://marshemispheres.com/images/schiaparelli_enhanced-full.jpg'},
-            {'title': 'Syrtis Major Hemisphere', 'img_url': 'https://marshemispheres.com/images/syrtis_major_enhanced-full.jpg'},
-            {'title': 'VAlees Marineris Hemisphere', 'img_url': 'https://marshemispheres.com/images/valles_marineris_enhanced-full.jpg'}]
+    hem_imgs = [{'title': 'Cerberus Hemisphere', 'img_url': 'https://marshemispheres.com/images/full.jpg'},
+                {'title': 'Schiaparelli Hemisphere', 'img_url': 'https://marshemispheres.com/images/schiaparelli_enhanced-full.jpg'},
+                {'title': 'Syrtis Major Hemisphere', 'img_url': 'https://marshemispheres.com/images/syrtis_major_enhanced-full.jpg'},
+                {'title': 'VAlees Marineris Hemisphere', 'img_url': 'https://marshemispheres.com/images/valles_marineris_enhanced-full.jpg'}]
+
+
+
+    mars_data = [{'news_title': title[0].text, 'news_content': p_text[0].text},
+                 {'featured_image': f_url},
+                 {'mars_table': html_table},
+                 hem_imgs]
+
+    browser.quit()
+
+    return mars_data
