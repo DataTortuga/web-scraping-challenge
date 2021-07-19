@@ -50,3 +50,4 @@ def scrape():
     browser.quit()
 
     return mars_data
+
