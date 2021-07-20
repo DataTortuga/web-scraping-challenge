@@ -42,10 +42,11 @@ def scrape():
 
 
 
-    mars_data = [{'news_title': title[0].text, 'news_content': p_text[0].text},
-                 {'featured_image': f_url},
-                 {'mars_table': html_table},
-                 {'hemi_pics': hem_imgs}]
+    mars_data = [{'news_title': title[0].text,
+                 'news_content': p_text[0].text,
+                 'featured_image': f_url,
+                 'mars_table': html_table,
+                 'hemi_pics': hem_imgs}]
 
     browser.quit()
 

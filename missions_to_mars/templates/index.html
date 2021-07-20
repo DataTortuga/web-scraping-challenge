@@ -29,13 +29,18 @@
     </div>
 
     <div class="row" id="Mars Data"">
+
       <div class="col-md-6">
         <h1 class="heading">Featured Mars Image</h1>
+        <img src={{mars_nws.featured_image}}>
       </div>
+
       <div class="col-md-6">
+        <h1 class="heading">Planet Data</h1>
+        
+        {{ mars_nws.mars_table|safe }}
         
       </div>
-    </div>
 
   </div>
 </body>

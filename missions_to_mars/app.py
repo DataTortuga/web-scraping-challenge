@@ -16,16 +16,18 @@ def index():
 
 @app.route("/scrape")
 def scraper():
+    mongo.db.mars_nws.drop()
     mars_nws = mongo.db.mars_nws
-    mars_f_img = mongo.db.mars_f_img
-    mars_tb = mongo.db.mars_tb
-    mars_hem = mongo.db.mars_hem
+    # mars_f_img = mongo.db.mars_f_img
+    # mars_tb = mongo.db.mars_tb
+    # mars_hem = mongo.db.mars_hem
 
     mars_data = scrape_mars.scrape()
-    mars_nws.update({}, mars_data[0], upsert=True)
-    mars_f_img.update({}, mars_data[1], upsert=True)
-    mars_tb.update({}, mars_data[2], upsert=True)
-    mars_hem.update({}, mars_data[3], upsert=True)
+    mars_nws.insert_many(mars_data)
+    
+    # mars_f_img.update({}, mars_data[1], upsert=True)
+    # mars_tb.update({}, mars_data[2], upsert=True)
+    # mars_hem.update({}, mars_data[3], upsert=True)
     
     return redirect("/", code=302)
 
