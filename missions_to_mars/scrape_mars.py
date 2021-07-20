@@ -30,10 +30,9 @@ def scrape():
     url = 'https://galaxyfacts-mars.com/'
 
     tables = pd.read_html(url)
-    tables
 
     df = tables[1]
-    html_table = df.to_html()
+    html_table = df.to_html(index=False,header=False,classes="table table-striped table-dark")
 
     hem_imgs = [{'title': 'Cerberus Hemisphere', 'img_url': 'https://marshemispheres.com/images/full.jpg'},
                 {'title': 'Schiaparelli Hemisphere', 'img_url': 'https://marshemispheres.com/images/schiaparelli_enhanced-full.jpg'},
