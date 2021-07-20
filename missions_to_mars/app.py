@@ -8,7 +8,6 @@ app = Flask(__name__)
 app.config["MONGO_URI"] = "mongodb://localhost:27017/mars_db"
 mongo = PyMongo(app)
 
-
 @app.route("/")
 def index():
     mars_nws = mongo.db.mars_nws.find_one()
@@ -17,7 +16,6 @@ def index():
 
 @app.route("/scrape")
 def scraper():
-
     mars_nws = mongo.db.mars_nws
     mars_f_img = mongo.db.mars_f_img
     mars_tb = mongo.db.mars_tb
@@ -34,3 +32,5 @@ def scraper():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+
