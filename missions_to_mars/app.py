@@ -19,7 +19,7 @@ def hemi():
     return render_template("hemi.html", mars_nws=mars_nws)
 
 
-@app.route("/scrape")
+@app.route("/scrape/")
 def scraper():
 
 
